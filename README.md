@@ -78,30 +78,28 @@
 ## 3. 项目结构
 
 ```text
-nav_ws/
-└── src/
-    └── nav2_practice/
-        ├── launch/
-        │   ├── bringup_sim.launch.py   # 启动 Gazebo + TurtleBot3
-        │   ├── slam.launch.py          # 启动 SLAM Toolbox 建图
-        │   └── navigation.launch.py    # 启动 Nav2 导航
-        ├── maps/
-        │   ├── my_map.pgm             # 栅格地图
-        │   └── my_map.yaml            # 地图元数据
-        ├── params/
-        │   └── nav2_params.yaml       # Nav2 参数配置
-        ├── rviz/
-        │   └── nav2_view.rviz         # RViz2 预设配置
-        ├── docs/                      # 各模块原理小结
-        ├── CMakeLists.txt
-        ├── package.xml
-        └── README.md
+TurtleBot/
+├── launch/
+│   ├── bringup_sim.launch.py   # 启动 Gazebo + TurtleBot3
+│   ├── slam.launch.py          # 启动 SLAM Toolbox 建图
+│   └── navigation.launch.py    # 启动 Nav2 导航
+├── maps/
+│   ├── my_map.pgm              # 栅格地图
+│   └── my_map.yaml             # 地图元数据
+├── params/
+│   └── nav2_params.yaml        # Nav2 参数配置
+├── rviz/
+│   └── nav2_view.rviz          # RViz2 预设配置
+├── docs/                       # 各模块原理小结
+├── CMakeLists.txt
+├── package.xml
+└── README.md
 ```
 
 ## 4. 构建
 
 ```bash
-cd ~/Desktop/nav_ws
+cd ~/Desktop/TurtleBot
 source /opt/ros/humble/setup.bash
 colcon build --symlink-install
 source install/setup.bash
@@ -118,7 +116,7 @@ export ROS_LOG_DIR=/tmp/ros_logs
 **终端 1：**
 
 ```bash
-cd ~/Desktop/nav_ws
+cd ~/Desktop/TurtleBot
 source /opt/ros/humble/setup.bash
 source install/setup.bash
 ros2 launch nav2_practice bringup_sim.launch.py
@@ -144,7 +142,7 @@ ros2 topic echo --once /odom
 
 ```bash
 source /opt/ros/humble/setup.bash
-source ~/Desktop/nav_ws/install/setup.bash
+source ~/Desktop/TurtleBot/install/setup.bash
 ros2 run turtlebot3_teleop teleop_keyboard
 ```
 
@@ -161,7 +159,7 @@ ros2 run turtlebot3_teleop teleop_keyboard
 
 ```bash
 source /opt/ros/humble/setup.bash
-source ~/Desktop/nav_ws/install/setup.bash
+source ~/Desktop/TurtleBot/install/setup.bash
 ros2 launch nav2_practice slam.launch.py
 ```
 
@@ -189,14 +187,14 @@ ros2 launch nav2_practice slam.launch.py
 
 ```bash
 source /opt/ros/humble/setup.bash
-source ~/Desktop/nav_ws/install/setup.bash
-ros2 run nav2_map_server map_saver_cli -f ~/Desktop/nav_ws/src/nav2_practice/maps/my_map
+source ~/Desktop/TurtleBot/install/setup.bash
+ros2 run nav2_map_server map_saver_cli -f ~/Desktop/TurtleBot/maps/my_map
 ```
 
 **验收：**
 
 ```bash
-ls -lh ~/Desktop/nav_ws/src/nav2_practice/maps/my_map.*
+ls -lh ~/Desktop/TurtleBot/maps/my_map.*
 ```
 
 期望文件：
@@ -214,14 +212,14 @@ my_map.yaml
 
 ```bash
 source /opt/ros/humble/setup.bash
-source ~/Desktop/nav_ws/install/setup.bash
+source ~/Desktop/TurtleBot/install/setup.bash
 ros2 launch nav2_practice navigation.launch.py
 ```
 
 > ⚠️ 如果要显式指定地图，**命令必须是一整行**：
 
 ```bash
-ros2 launch nav2_practice navigation.launch.py map:=$HOME/Desktop/nav_ws/src/nav2_practice/maps/my_map.yaml
+ros2 launch nav2_practice navigation.launch.py map:=$HOME/Desktop/TurtleBot/maps/my_map.yaml
 ```
 
 **RViz 操作顺序：**
@@ -545,7 +543,7 @@ ros2 launch nav2_practice navigation.launch.py
 如果显式传地图，**必须保持一整行**：
 
 ```bash
-ros2 launch nav2_practice navigation.launch.py map:=$HOME/Desktop/nav_ws/src/nav2_practice/maps/my_map.yaml
+ros2 launch nav2_practice navigation.launch.py map:=$HOME/Desktop/TurtleBot/maps/my_map.yaml
 ```
 
 ## 16. 最小可行版本与扩展方向
